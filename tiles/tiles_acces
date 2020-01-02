@@ -1,1 +1,33 @@
 # Modules tiles acces
+   
+def check_indice(plateau, indice):
+    """
+    Retourne True si indice correspond à un indice valide de case pour le plateau ( entre 0 et n-1)
+    
+    EXEMPLE:
+    p = init_play()
+    check_indice(p,0) # Retourne True
+    check_indice(p,10) # Retourne False
+    check_indice(p,3) # Retourne True
+    check_indice(p,4) # Retourne False
+    check_indice(p,-1) # Retourne False
+    """
+    n = plateau['n'] # On va chercher la valeur de n
+    if(0 < indice and indice < n-1): # Vérifie si indice est compris entre 0 et n-1
+        return True # Alors renvoie True
+    else:
+        return False # Sinon renvoie False
+    
+def check_room(plateau, lig, col):
+    """
+    Retourne True si (lig, col) est une case du plateau (lig et col sont des indices valides)
+    
+    EXEMPLE:
+    p = init_play()
+    check_room(p,2,1) # Retourne True
+    check_room(p,10,2) # Retourne False
+    check_room(p,-,3) # Retourne False
+    check_room(p,3,3) # Retourne True
+    """
+        
+    return check_indice(plateau, lig) and check_indice(plateau, col) # Utilise la fonction check_indice pour vérifier si col et lig sont bien valides
