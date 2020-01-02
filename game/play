@@ -1,3 +1,5 @@
+# Module play
+
 def init_play():
     """
     Retroune un plateau correspondant à une nouvelle partie
