@@ -88,9 +88,3 @@ def full_display(plateau):
     cprint('     ', 'grey', get_color(plateau['tiles'][14]), end=' ')
     cprint('     ', 'grey', get_color(plateau['tiles'][15]))
 
-
-
-    
-p = {'n' : 4, 'nb_cases_libres' : 6, 'tiles' : [6,2,3,2,12,2,6,2,6,2,2,12,1,6,3,1]}
-
-full_display(p)
