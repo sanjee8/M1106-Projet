@@ -1,5 +1,5 @@
 # Module play display
-from termcolor import cprint
+# from termcolor import cprint ( à importer )
 def get_color(score):
     if(score == 0 or score == 1):
         return 'on_blue'
