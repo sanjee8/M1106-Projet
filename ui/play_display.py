@@ -33,7 +33,6 @@ def sized(score):
     else:
         return '  '+str(score)+'  '
 
-# module: /ui/play_display ( from termcolor import cprint )
 def full_display(plateau):
     """
     Affichage en couleurs du jeu
