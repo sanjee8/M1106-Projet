@@ -59,4 +59,4 @@ def full_display(plateau):
             print(li) # Afficher la ligne secondaire (1 ligne principale est composée de 3 lignes secondaires)
             h+=1 # Incrémentation h
         i+=1 # Incrémentation i
-        print(" ") # Permet de séparer les lignes (sans couleurs)
+        print(" ") # Permet de séparer les lignes principales (sans couleurs)
