@@ -24,7 +24,7 @@ def sized(score):
     """
     if(score > 10000): # Verifier la taille de score
         return ''+str(score)+'' # Adapter le texte selon la taille du score
-    elif(score > 100):
+    elif(score > 1000):
         return ' '+str(score)+''
     elif(score > 100):
         return ' '+str(score)+' '
