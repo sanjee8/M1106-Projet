@@ -1,4 +1,5 @@
 # Module tiles moves
+# form random import * ( à importer )
 
 def get_nb_empty_rooms(plateau):
     """
@@ -21,3 +22,54 @@ def get_nb_empty_rooms(plateau):
     plateau['nb_cases_libres'] = s # Met à jour plateau['nb_cases_libres'] avec la valeur trouvé
     
     return s # Renvoie le nombre de cases libres
+def get_next_alea_tiles(plateau, mode):
+    """
+    Retourne une ou deux tuile(s) dont la position (lig,col) est tirée
+    aléatoirement et correspond à un emplacement libre du plateau.
+    
+    parametres:
+    - plateau : dictionnaire contenant le plateau du jeu
+    - mode : init ou encours
+    """
+    
+    if(mode == 'init'): # Si mode = init
+        # On génère des valeurs aléatoire pour le positionnement de la première case
+        val1 = randint(0,3) 
+        val2 = randint(0,3)
+        # De même pour la deuxième case
+        va1 = randint(0,3)
+        va2 = randint(0,3)
+        
+        # On vérifie que on tombe pas sur la même case
+        while((va1 == val1) and (va2 == val1)):
+            va1 = randint(0,3)
+            va2 = randint(0,3)
+        # On génère aléatoirement la valeur de n1 et n2 (et vérifier qu'ils soient différements)  
+        n1 = randint(1,2)
+        n2 = randint(1,2)
+        while(n1 == n2):
+            n2 = randint(1,2)
+        # On return le dictionnaire
+        return {0:{'val':n1, 'lig':val1, 'col':val2},1:{'val':n2, 'lig': va1, 'col': va2}, 'check': True}
+    else: # Sinon, on considère que c'est le mode encours
+        val = randint(1,3) # On génère une valeur entre 1 et 3
+        tab = [] # Init le tableau des positions des cases nulles
+        i = 0 # Init boucle
+        while i<len(p['tiles']):
+            if p['tiles'][i] == 0: # Si la case est vide
+                tab.append(i) # On ajoute la valeur de l'emplacement dans le tableau
+            i += 1 # Incrémentation de i
+
+        n = randint(0,len(tab)) # On prend une postions aléatoire dans le tableau
+        num = tab[n]
+    
+        # On décompose la veuleur de la position dans le tableau en (lig,col)
+        lig=0
+        while num >= 4:
+            num=num-4
+            lig+=1
+            col=num
+
+        # On return le dictionnaire
+        return {0: {'val': val, 'lig': lig, 'col': col},'check': True}
+        
