@@ -73,3 +73,68 @@ def get_next_alea_tiles(plateau, mode):
         # On return le dictionnaire
         return {0: {'val': val, 'lig': lig, 'col': col},'check': True}
         
+def line_pack(plateau,num_lig,debut,sens):
+    """"
+    Tasse les tuiles d'une ligne dans un sens donné
+    
+    paramètres:
+    plateau - dictionnaire contenant le plateau du jeu
+    num_lig - indice de la ligne à "tasser"
+    debut - indice à partir duquel se fait le "tassement"
+    sens: - du "tassement", 1 vers la gauche, 0 vers la droite
+    """
+    
+    if sens == 1: # si le sens est égal à 1, alors on traite le sens gauche
+        debut = num_lig*4+debut # On encadre les 4 éléments de la num_lig i-ème ligne
+        j = num_lig*4+3 
+        
+        while debut < j: # Initialisation de la boucle 
+            plateau['tiles'][debut] = plateau['tiles'][debut+1] #Décalage des valeurs
+            debut+=1 #Incrémentation de début
+        if plateau['tiles'][j] != 0: #On vérifie si la dernière valeur est différente de 0
+            plateau['tiles'][j]=0 # On définie la dernière valeur à 0
+    
+    else: # sinon on traite le sens droite
+        debut = num_lig*4+debut # On encadre les 4 éléments de la num_lig i-ème ligne
+        j = num_lig*4
+        
+        while debut > j: # Initialisation de la boucle 
+            plateau['tiles'][debut] = plateau['tiles'][debut-1] #Décalage des valeurs
+            debut-=1 #Incrémentation de début
+        if plateau['tiles'][j] != 0: #On vérifie si la première valeur de la ligne est différente de 0
+            plateau['tiles'][j]=0 #On définie la première valeur à 0
+        
+
+
+
+
+def column_pack(plateau,num_col,debut,sens):
+    """
+    Tasse les tuiles d'une colonne donnée dans un sens donné
+    
+    paramètres:
+    
+    plateau - dictionnaire contenant le plateau du jeu
+    num_col - indice de la colonne à "tasser"
+    debut - indice à partir duquel se fait le "tassement"
+    sens: - du "tassement", 1 vers le haut, 0 vers le bas
+    
+    """
+    
+    if sens == 1: # Si le sens est égal à 1 on traite le sens vers le haut
+        j = num_col+4*debut # On encadre les 4 valeurs de la colonne
+        debut = num_col
+        while debut < j: #Initialisation de la boucle
+            plateau['tiles'][debut] = plateau['tiles'][debut+4] #Décalage des valeurs
+            debut+=4 #Incrémentation de début
+        if plateau['tiles'][j] != 0: #On vérifie si la dernière valeur de la colonne est différente de 0
+            plateau['tiles'][j] = 0 #On définie la dernière valeur à 0
+    else:
+        j = num_col+4*debut # On encadre les 4 valeurs de la colonne
+        debut = num_col+3*4
+        while debut > j: # Initialisation de la boucle
+            plateau['tiles'][debut] = plateau['tiles'][debut-4] #Décalage des valeurs
+            debut-=4 #Incrémentation de debut
+        if plateau['tiles'][j] != 0:#On vérifie si la première valeur est différente de 0
+            plateau['tiles'][j] = 0 #On définie la première valeur à 0
+            
