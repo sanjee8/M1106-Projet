@@ -57,7 +57,7 @@ def get_next_alea_tiles(plateau, mode):
         # On return le dictionnaire
         return {0:{'val':n1, 'lig':val1, 'col':val2},1:{'val':n2, 'lig': va1, 'col': va2}, 'check': True}
     else:  # Sinon, on considère que c'est le mode encours
-        if(plateau['nb_cases_libres'] == 0) :
+        if(plateau['nb_cases_libres'] == 0):
             return {0: {}, 'check': False}
         val = randint(1,3)  # On génère une valeur entre 1 et 3
         tab = []  # Init le tableau des positions des cases nulles
@@ -66,8 +66,9 @@ def get_next_alea_tiles(plateau, mode):
             if plateau['tiles'][i] == 0:  # Si la case est vide
                 tab.append(i)  # On ajoute la valeur de l'emplacement dans le tableau
             i += 1  # Incrémentation de i
+            
 
-        n = randint(0,len(tab))  # On prend une postions aléatoire dans le tableau
+        n = randint(0,len(tab)-1)  # On prend une postions aléatoire dans le tableau
         num = tab[n]
     
         # On décompose la veuleur de la position dans le tableau en (lig,col)
@@ -76,7 +77,7 @@ def get_next_alea_tiles(plateau, mode):
             num=num-4
             lig+=1
             col=num
-
+        
         # On return le dictionnaire
         return {0: {'val': val, 'lig': lig, 'col': col},'check': True}
 
@@ -140,7 +141,7 @@ def column_pack(plateau,num_col,debut,sens):
     """
     
     if sens == 1:  # Si le sens est égal à 1 on traite le sens vers le haut
-        j = num_col+4*debut  # On encadre les 4 valeurs de la colonne
+        j = (num_col*4)+debut  # On encadre les 4 valeurs de la colonne
         debut = num_col
         while debut < j:  # Initialisation de la boucle
             plateau['tiles'][debut] = plateau['tiles'][debut+4]  # Décalage des valeurs
@@ -148,7 +149,7 @@ def column_pack(plateau,num_col,debut,sens):
         if plateau['tiles'][j] != 0:  # On vérifie si la dernière valeur de la colonne est différente de 0
             plateau['tiles'][j] = 0  # On définie la dernière valeur à 0
     else:
-        j = num_col+4*debut # On encadre les 4 valeurs de la colonne
+        j = num_col # On encadre les 4 valeurs de la colonne
         debut = num_col+3*4
         while debut > j:  # Initialisation de la boucle
             plateau['tiles'][debut] = plateau['tiles'][debut-4]  # Décalage des valeurs
@@ -170,13 +171,28 @@ def line_move (plateau, num_lig, sens):
     if(sens == 1):  # On vérifie si le sens est 'gauche'
         i = 4*num_lig  # On encadre les 4 valeurs de la ligne
         j = (4*num_lig)+3
+
         n = 0  # On initialise n
         while (i < j):  # Initialisation boucle
-            if(plateau['tiles'][i] == plateau['tiles'][i+1]):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+            if(plateau['tiles'][i] == 0):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                line_pack(plateau, num_lig, n, sens)  # On déplace les tuiles
+            
+            
+            elif(plateau['tiles'][i] == 1 and plateau['tiles'][i+1] == 2):  # On vérifie que les tuiles ont la même valeur avant le déplacement
                 tuile = plateau['tiles'][i]  # On enregistre la valeur de i
-                line_pack(plateau, num_lig, i, sens)  # On déplace les tuiles
+                line_pack(plateau, num_lig, n, sens)  # On déplace les tuiles
+                set_value(plateau, num_lig, n, 3)  # On change la valeur de la tuile
+                
+            elif(plateau['tiles'][i] == 2 and plateau['tiles'][i+1] == 1):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                tuile = plateau['tiles'][i]  # On enregistre la valeur de i
+                line_pack(plateau, num_lig, n, sens)  # On déplace les tuiles
+                set_value(plateau, num_lig, n, 3)  # On change la valeur de la tuile
+            
+            elif(plateau['tiles'][i] == plateau['tiles'][i+1]):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                tuile = plateau['tiles'][i]  # On enregistre la valeur de i
+                line_pack(plateau, num_lig, n, sens)  # On déplace les tuiles
                 set_value(plateau, num_lig, n, tuile*2)  # On change la valeur de la tuile
-
+                
             i += 1  #Incrémentation de i et n
             n += 1
 
@@ -186,11 +202,26 @@ def line_move (plateau, num_lig, sens):
         n = 3  # Initialisation de n
 
         while (i > j):  # initialisation boucle
-            if (plateau['tiles'][i] == plateau['tiles'][i - 1]):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+            
+            if(plateau['tiles'][i] == 0):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                line_pack(plateau, num_lig, n, sens)  # On déplace les tuiles
+            
+            
+            elif(plateau['tiles'][i] == 1 and plateau['tiles'][i-1] == 2):  # On vérifie que les tuiles ont la même valeur avant le déplacement
                 tuile = plateau['tiles'][i]  # On enregistre la valeur de i
-                line_pack(plateau, num_lig, i, sens)  # On déplace les tuiles
-                set_value(plateau, num_lig, n, tuile * 2)  # On change la valeur de la tuile
-
+                line_pack(plateau, num_lig, n, sens)  # On déplace les tuiles
+                set_value(plateau, num_lig, n, 3)  # On change la valeur de la tuile
+                
+            elif(plateau['tiles'][i] == 2 and plateau['tiles'][i-1] == 1):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                tuile = plateau['tiles'][i]  # On enregistre la valeur de i
+                line_pack(plateau, num_lig, n, sens)  # On déplace les tuiles
+                set_value(plateau, num_lig, n, 3)  # On change la valeur de la tuile
+            
+            elif(plateau['tiles'][i] == plateau['tiles'][i-1]):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                tuile = plateau['tiles'][i]  # On enregistre la valeur de i
+                line_pack(plateau, num_lig, n, sens)  # On déplace les tuiles
+                set_value(plateau, num_lig, n, tuile*2)  # On change la valeur de la tuile
+                
             i -= 1  #Incrémentation de i et n
             n -= 1
 
@@ -209,9 +240,23 @@ def column_move(plateau, num_col, sens):
         j = num_col + (4 * 3)
         n = 0  # Initialisation de n
         while (i < j):  # initialisation boucle
-            if(plateau['tiles'][i] == plateau['tiles'][i+4]):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+            if(plateau['tiles'][i] == 0):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                column_pack(plateau, num_col, n, sens)  # On déplace les tuiles
+            
+            
+            elif(plateau['tiles'][i] == 1 and plateau['tiles'][i+4] == 2):  # On vérifie que les tuiles ont la même valeur avant le déplacement
                 tuile = plateau['tiles'][i]  # On enregistre la valeur de i
-                column_pack(plateau, num_col, i, sens)  # On déplace les tuiles
+                column_pack(plateau, num_col, n, sens)  # On déplace les tuiles
+                set_value(plateau, n, num_col, 3)  # On change la valeur de la tuile
+                
+            elif(plateau['tiles'][i] == 2 and plateau['tiles'][i+4] == 1):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                tuile = plateau['tiles'][i]  # On enregistre la valeur de i
+                column_pack(plateau, num_col, n, sens)  # On déplace les tuiles
+                set_value(plateau, n, num_col, 3)  # On change la valeur de la tuile
+            
+            elif(plateau['tiles'][i] == plateau['tiles'][i+4]):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                tuile = plateau['tiles'][i]  # On enregistre la valeur de i
+                column_pack(plateau, num_col, n, sens)  # On déplace les tuiles
                 set_value(plateau, n, num_col, tuile*2)  # On change la valeur de la tuile
 
             i += 4  # Incrémentation de i et n
@@ -221,10 +266,25 @@ def column_move(plateau, num_col, sens):
         j = num_col
         n = 0  # Initialisation de n
         while (i > j):  # initialisation boucle
-            if (plateau['tiles'][i] == plateau['tiles'][i - 4]):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+            
+            if(plateau['tiles'][i] == 0):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                column_pack(plateau, num_col, n, sens)  # On déplace les tuiles
+            
+            
+            elif(plateau['tiles'][i] == 1 and plateau['tiles'][i-4] == 2):  # On vérifie que les tuiles ont la même valeur avant le déplacement
                 tuile = plateau['tiles'][i]  # On enregistre la valeur de i
-                column_pack(plateau, num_col, i, sens)  # On déplace les tuiles
-                set_value(plateau, n, num_col, tuile * 2)  # On change la valeur de la tuile
+                column_pack(plateau, num_col, n, sens)  # On déplace les tuiles
+                set_value(plateau, n, num_col, 3)  # On change la valeur de la tuile
+                
+            elif(plateau['tiles'][i] == 2 and plateau['tiles'][i-4] == 1):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                tuile = plateau['tiles'][i]  # On enregistre la valeur de i
+                column_pack(plateau, num_col, n, sens)  # On déplace les tuiles
+                set_value(plateau, n, num_col, 3)  # On change la valeur de la tuile
+            
+            elif(plateau['tiles'][i] == plateau['tiles'][i-4]):  # On vérifie que les tuiles ont la même valeur avant le déplacement
+                tuile = plateau['tiles'][i]  # On enregistre la valeur de i
+                column_pack(plateau, num_col, n, sens)  # On déplace les tuiles
+                set_value(plateau, n, num_col, tuile*2)  # On change la valeur de la tuile
 
             i -= 4  # Incrémentation de i et n
             n -= 1
