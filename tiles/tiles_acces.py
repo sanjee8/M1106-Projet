@@ -1,4 +1,9 @@
 # Module tiles.tiles_acces
+
+####################################
+#             PARTIE 1             #
+####################################
+
    
 def check_indice(plateau, indice):
     """
@@ -17,7 +22,7 @@ def check_indice(plateau, indice):
     check_indice(p,-1) # Retourne False
     """
     n = plateau['n']  # On va chercher la valeur de n
-    if(0 <= indice and indice < 4):  # Vérifie si indice est compris entre 0 et n-1
+    if 0 <= indice < n:  # Vérifie si indice est compris entre 0 et n-1
         return True  # Alors renvoie True
     else:
         return False  # Sinon renvoie False
@@ -38,8 +43,9 @@ def check_room(plateau, lig, col):
     check_room(p,-,3) # Retourne False
     check_room(p,3,3) # Retourne True
     """
-        
-    return check_indice(plateau, lig) and check_indice(plateau, col)  # Utilise la fonction check_indice pour vérifier si col et lig sont bien valides
+
+    # Utilise la fonction check_indice pour vérifier si col et lig sont bien valides
+    return check_indice(plateau, lig) and check_indice(plateau, col)
 
 def get_value(plateau, lig, col):
     """
@@ -59,7 +65,7 @@ def get_value(plateau, lig, col):
     get_value(p,3,0) # retourne 1
     get_value(p,18,3) # lève une erreur
     """
-    if(check_room(plateau, lig, col)):  # Vérifie que les indices sont valides
+    if check_room(plateau, lig, col):  # Vérifie que les indices sont valides
         indice = (lig * 4) + col  # Calcule d'incide final à l'aide de lig et col
         return plateau['tiles'][indice]  # Retourne la valeur dans le tableau tiles du dictionnaire plateau
     else: 
@@ -85,8 +91,8 @@ def set_value(plateau, lig, col, val):
     set_case(p,18,3,1) # génère une erreur
     set_case(p,2,3,6) # met la valeur 6 dans la case (2,3)
     """
-    if(val > 0):  # Vérifie que val soit supérieur à 0
-        if(check_room(plateau, lig, col)):  # Vérifie que les indices sont valides
+    if val > 0:  # Vérifie que val soit supérieur à 0
+        if check_room(plateau, lig, col):  # Vérifie que les indices sont valides
             indice = (lig * 4) + col  # Calcule d'incide final à l'aide de lig et col
             plateau['tiles'][indice] = val  # Affecte la valeur val dans la case (lig,col) du plateau.
         else:
@@ -110,9 +116,9 @@ def is_room_empty(plateau, lig, col):
     is_room_empty(p,3,2) # return True
     is_room_empty(p,15,2) # génère une Erreur
     """
-    if(check_room(plateau, lig, col)):  # Vérifie que les indices sont valides
+    if check_room(plateau, lig, col):  # Vérifie que les indices sont valides
         indice = (lig * 4) + col  # Calcule d'incide final à l'aide de lig et col
-        if(plateau['tiles'][indice] == 0):  # Vérifie si la valeur de la case (lig,col) est égal à 0
+        if plateau['tiles'][indice] == 0:  # Vérifie si la valeur de la case (lig,col) est égal à 0
             return True  # Alors renvoie True
         else:
             return False  # Sinon renvoie False
