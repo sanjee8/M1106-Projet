@@ -50,7 +50,7 @@ def is_game_over(plateau):
     else:
         return False  # Sinon renvoie False
 def test_is_game_over():
-    z={'n': 4, 'nb_cases_libres': 16,
+    z={'n': 4, 'nb_cases_libres': 0,
             'tiles': [1, 2, 3, 4, 5, 7, 8, 8, 8, 7, 7, 9, 7, 4, 7, 1]}
     p=init_play()
     assert is_game_over(p) == False
