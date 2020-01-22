@@ -26,6 +26,10 @@ def init_play():
     return {'n': 4, 'nb_cases_libres': 16,
             'tiles': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}  # retourne le dictionnaire demandé
 
+def test_init_play():
+    assert init_play() == {'n': 4, 'nb_cases_libres': 16,
+                            'tiles': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+    print("ok pour init_play")
 
 def is_game_over(plateau):
     """
