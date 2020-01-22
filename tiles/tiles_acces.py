@@ -26,14 +26,6 @@ def check_indice(plateau, indice):
         return True  # Alors renvoie True
     else:
         return False  # Sinon renvoie False
-def test_check_indice():
-    p = init_play()
-    assert check_indice(p,0) == True # Retourne True
-    assert check_indice(p,10) == False # Retourne False
-    assert check_indice(p,3) == True # Retourne True
-    assert check_indice(p,4) == False # Retourne False
-    assert check_indice(p,-1) == False # Retourne False
-    print("ok pour check_indice")
     
 def check_room(plateau, lig, col):
     """
@@ -54,13 +46,6 @@ def check_room(plateau, lig, col):
 
     # Utilise la fonction check_indice pour vérifier si col et lig sont bien valides
     return check_indice(plateau, lig) and check_indice(plateau, col)
-def test_check_room():
-    p = init_play()
-    assert check_room(p,2,1) == True # Retourne True
-    assert check_room(p,10,2) == False# Retourne False
-    assert check_room(p,-1,3) == False # Retourne False
-    assert check_room(p,3,3) == True # Retourne True
-    print("ok pour check_room")
 
 def get_value(plateau, lig, col):
     """
@@ -85,15 +70,7 @@ def get_value(plateau, lig, col):
         return plateau['tiles'][indice]  # Retourne la valeur dans le tableau tiles du dictionnaire plateau
     else: 
         return 'Erreur'  # Retourne erreur si les indices sont invalides
-def test_get_value():
-    p = {'n' : 4, 'nb_cases_libres' : 16, 'tiles' : [6,2,3,2,0,2,6,2,0,2,2,0,1,0,0,0]}
-    assert get_value(p,0,0) == 6 # retourne 6
-    assert get_value(p,2,3) == 0 # retourne 0 (la case est vide)
-    assert get_value(p,1,3) == 2 # retourne 2
-    assert get_value(p,3,0) == 1# retourne 1
-    assert get_value(p,18,3) == 'Erreur'# lève une erreur
-    print("ok pour get_value")
-    
+
 def set_value(plateau, lig, col, val):
     """
     Affecte la valeur val dans la case (lig, col) du plateau.
@@ -147,10 +124,3 @@ def is_room_empty(plateau, lig, col):
             return False  # Sinon renvoie False
     else:
         return 'Erreur'  # Si les indices sont invalides, renvoie Erreur
-def test_is_room_empty():
-    p = {'n': 4, 'nb_cases_libres': 15,
-           'tiles': [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-    assert is_room_empty(p,0,1) == False # return False
-    assert is_room_empty(p,3,2) == True# return True
-    assert is_room_empty(p,15,2) == 'Erreur' # génère une Erreur
-    print("ok pour is_room_empty")
