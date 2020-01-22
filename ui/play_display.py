@@ -35,13 +35,13 @@ def sized(score):
     texte = sized(3) # texte vaut '  3  '
     texte2 = sized(300) # texte vaut ' 300 '
     """
-    if score > 10000:  # Verifier la taille de score
+    if score >= 10000:  # Verifier la taille de score
         return '' + str(score) + ''  # Adapter le texte selon la taille du score
-    elif score > 1000:
+    elif score >= 1000:
         return ' ' + str(score) + ''
-    elif score > 100:
+    elif score >= 100:
         return ' ' + str(score) + ' '
-    elif score > 10:
+    elif score >= 10:
         return '  ' + str(score) + ' '
     else:
         return '  ' + str(score) + '  '

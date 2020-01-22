@@ -1,7 +1,5 @@
 # Modules tiles.tiles_moves
-from random import *
-
-from game.play import is_game_over
+from random import randint
 from tiles.tiles_acces import set_value
 
 
@@ -32,6 +30,7 @@ def get_nb_empty_rooms(plateau):
     plateau['nb_cases_libres'] = s  # Met à jour plateau['nb_cases_libres'] avec la valeur trouvé
 
     return s  # Renvoie le nombre de cases libres
+
 
 ####################################
 #             PARTIE 2             #
@@ -66,7 +65,7 @@ def get_next_alea_tiles(plateau, mode):
         # On return le dictionnaire
         return {0: {'val': n1, 'lig': val1, 'col': val2}, 1: {'val': n2, 'lig': va1, 'col': va2}, 'check': True}
     else:  # Sinon, on considère que c'est le mode encours
-        if is_game_over(plateau):  # Si le jeu ne peut être continué
+        if get_nb_empty_rooms(plateau) == 0:  # Si le jeu ne peut être continué
             return {0: {}, 'check': False}  # Return check false
         val = randint(1, 3)  # On génère une valeur entre 1 et 3
         tab = []  # Init le tableau des positions des cases nulles
@@ -75,7 +74,6 @@ def get_next_alea_tiles(plateau, mode):
             if plateau['tiles'][i] == 0:  # Si la case est vide
                 tab.append(i)  # On ajoute la valeur de l'emplacement dans le tableau
             i += 1  # Incrémentation de i
-
 
         if len(tab) != 0:
             n = randint(0, len(tab) - 1)  # On prend une postions aléatoire dans le tableau

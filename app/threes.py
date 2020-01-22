@@ -1,5 +1,6 @@
 # Module app.threes
-from life_cycle.play import *
+from termcolor import colored
+from life_cycle.play import get_user_menu, cycle_play, save_game, restore_game, highscore
 
 
 ####################################
@@ -26,6 +27,9 @@ def threes():
                 print(colored("                                     ", "grey", "on_green"))
                 print(colored(" Bravo ! Vous avez gagné la partie ! ", "grey", "on_green"))
                 print(colored("                                     ", "grey", "on_green"))
+
+                highscore(game['score'])
+
                 use = False
             else:
                 # Affiche le menu principal avec sauvegarde et reprendre
@@ -46,6 +50,9 @@ def threes():
                 print(colored("                                     ", "grey", "on_green"))
                 print(colored(" Bravo ! Vous avez gagné la partie ! ", "grey", "on_green"))
                 print(colored("                                     ", "grey", "on_green"))
+
+                highscore(game['score'])
+
             else:  # Sinon
                 # Affiche le menu principal avec sauvegarde et reprendre
                 ent = get_user_menu(game)

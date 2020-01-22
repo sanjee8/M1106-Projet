@@ -2,7 +2,7 @@
 from ui.play_display import *
 from ui.user_entries import *
 from tiles.tiles_moves import *
-from game.play import *
+from game.play import create_new_play, get_score
 from termcolor import colored
 from json import *
 from os import path
@@ -28,6 +28,7 @@ def cycle_play(partie):
             * ou retourner False si menu demandé
         4 - si partie terminée, retourner True
     """
+
     while True:  # On initialise une boucle sans fin jusqu'à return
 
         if partie is None:  # Si la partie n'est pas en cours
@@ -35,6 +36,7 @@ def cycle_play(partie):
             # Place les deux tuiles de départ
             put_next_tiles(partie['plateau'], get_next_alea_tiles(partie['plateau'], 'init'))
         else:  # Sinon
+
             # Affiche un message contenant les touches de déplacement
             print(colored(' Touches de déplacement :', 'grey', "on_white"))
             print(colored('   h (↑), b (↓), d (→),  ', 'grey', "on_white"))
@@ -53,6 +55,9 @@ def cycle_play(partie):
             # Affiche le score
             print(colored('       Score      ', 'grey', "on_cyan") + colored(
                 ' ' + sized(partie['score']) + ' ', 'grey', "on_green"))
+            # Afficher le highscore
+            print(colored('      Record      ', 'grey', "on_cyan") + colored(
+                ' ' + sized(get_highscore()) + ' ', 'grey', "on_green"))
 
             # Récupère le mouvement du joueur
             move = get_user_move()
@@ -62,7 +67,7 @@ def cycle_play(partie):
             elif not partie['next_tile']['check']:  # Si il reste plus de cases vides ( jeu terminé )
                 return True, partie  # On renvoie True
             else:
-                play_move(partie['plateau'], move) # Sinon prend en compte le déplacement
+                play_move(partie['plateau'], move)  # Sinon prend en compte le déplacement
 
             # Vérification pour éviter les superpositions
             val = partie['next_tile'][0]['val']
@@ -76,6 +81,7 @@ def cycle_play(partie):
 
             # Met à jour le score
             partie['score'] = get_score(partie['plateau'])
+
 
 
 def save_game(partie):
@@ -122,3 +128,33 @@ def restore_game():
     else:
         # On renvoie une nouvelle partie
         return create_new_play()
+
+
+def highscore(score):
+    # On ouvre le fichier score.json
+    file = open('score.json', 'r')
+    # On lit et enregistre dans la variable txt
+    txt = file.read()
+
+    sco = loads(txt)
+
+    if score > sco['highscore']:
+        dic = {'highscore': score}
+        jso = dumps(dic)  # Fais passer un dictionnaire en str
+        file = open('score.json', 'w')  # Permet de créer un fichier score.json
+
+        file.write(jso)  # On écrit dans highscore.json la partie en str
+        file.close()  # On ferme le fichier
+        print(colored("                                             ", "grey", "on_green"))
+        print(colored(" Félicitations ! Vous avez battu le record ! ", "grey", "on_green"))
+        print(colored("                                             ", "grey", "on_green"))
+
+
+def get_highscore():
+    # On ouvre le fichier score.json
+    file = open('score.json', 'r')
+    # On lit et enregistre dans la variable txt
+    txt = file.read()
+
+    sco = loads(txt)
+    return sco['highscore']
