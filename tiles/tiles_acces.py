@@ -26,6 +26,14 @@ def check_indice(plateau, indice):
         return True  # Alors renvoie True
     else:
         return False  # Sinon renvoie False
+def test_check_indice():
+    p = init_play()
+    assert check_indice(p,0) == True # Retourne True
+    assert check_indice(p,10) == False # Retourne False
+    assert check_indice(p,3) == True # Retourne True
+    assert check_indice(p,4) == False # Retourne False
+    assert check_indice(p,-1) == False # Retourne False
+    print("ok pour check_indice")
     
 def check_room(plateau, lig, col):
     """
