@@ -102,3 +102,11 @@ def create_new_play():
         'next_tile': {},
         'score': 3
     }  # On return le dictionnaire demandé
+def test_create_new_play():
+    plateau = init_play()  # On crée un plateau vide grâce à init_play
+    assert create_new_play() == {
+        'plateau': plateau,
+        'next_tile': {},
+        'score': 3
+    }
+    print("ok pour create_new_play")
