@@ -50,9 +50,9 @@ def is_game_over(plateau):
     else:
         return False  # Sinon renvoie False
 def test_is_game_over():
-    z={'n': 4, 'nb_cases_libres': 0,
-            'tiles': [1, 2, 3, 4, 5, 7, 8, 8, 8, 7, 7, 9, 7, 4, 7, 1]}
-    p=init_play()
+    z = {'n': 4, 'nb_cases_libres': 0,
+            'tiles': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
+    p = init_play()
     assert is_game_over(p) == False
     assert is_game_over(z) == True
     print("ok pour is_game_over")
@@ -76,6 +76,13 @@ def get_score(plateau):
 
     return s  # Retourne le score s
 
+def test_get_score():
+    z = {'n': 4, 'nb_cases_libres': 0,
+            'tiles': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
+    p = init_play()
+    assert get_score(p) == 0
+    assert get_score(z) == 16
+    print("ok pour get_score")
 
 ####################################
 #             PARTIE 3             #
