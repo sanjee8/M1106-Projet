@@ -48,12 +48,19 @@ def check_room(plateau, lig, col):
     p = init_play()
     check_room(p,2,1) # Retourne True
     check_room(p,10,2) # Retourne False
-    check_room(p,-,3) # Retourne False
+    check_room(p,-1,3) # Retourne False
     check_room(p,3,3) # Retourne True
     """
 
     # Utilise la fonction check_indice pour vérifier si col et lig sont bien valides
     return check_indice(plateau, lig) and check_indice(plateau, col)
+def test_check_room():
+    p = init_play()
+    assert check_room(p,2,1) == True # Retourne True
+    assert check_room(p,10,2) == False# Retourne False
+    assert check_room(p,-1,3) == False # Retourne False
+    assert check_room(p,3,3) == True # Retourne True
+    print("ok pour check_room")
 
 def get_value(plateau, lig, col):
     """
