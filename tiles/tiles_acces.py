@@ -147,3 +147,10 @@ def is_room_empty(plateau, lig, col):
             return False  # Sinon renvoie False
     else:
         return 'Erreur'  # Si les indices sont invalides, renvoie Erreur
+def test_is_room_empty():
+    p = {'n': 4, 'nb_cases_libres': 15,
+           'tiles': [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+    assert is_room_empty(p,0,1) == False # return False
+    assert is_room_empty(p,3,2) == True# return True
+    assert is_room_empty(p,15,2) == 'Erreur' # génère une Erreur
+    print("ok pour is_room_empty")
