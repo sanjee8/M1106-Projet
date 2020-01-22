@@ -85,6 +85,14 @@ def get_value(plateau, lig, col):
         return plateau['tiles'][indice]  # Retourne la valeur dans le tableau tiles du dictionnaire plateau
     else: 
         return 'Erreur'  # Retourne erreur si les indices sont invalides
+def test_get_value():
+    p = {'n' : 4, 'nb_cases_libres' : 16, 'tiles' : [6,2,3,2,0,2,6,2,0,2,2,0,1,0,0,0]}
+    assert get_value(p,0,0) == 6 # retourne 6
+    assert get_value(p,2,3) == 0 # retourne 0 (la case est vide)
+    assert get_value(p,1,3) == 2 # retourne 2
+    assert get_value(p,3,0) == 1# retourne 1
+    assert get_value(p,18,3) == 'Erreur'# lève une erreur
+    print("ok pour get_value")
     
 def set_value(plateau, lig, col, val):
     """
