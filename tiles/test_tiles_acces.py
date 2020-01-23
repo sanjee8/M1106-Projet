@@ -2,16 +2,16 @@ def test_check_indice():
     p = init_play()
     assert check_indice(p,0) == True # Retourne True
     assert check_indice(p,10) == False # Retourne False
-    assert check_indice(p,3) == True # Retourne True
-    assert check_indice(p,4) == False # Retourne False
-    assert check_indice(p,-1) == False # Retourne False
+    assert check_indice(p,1) == True # Retourne True
+    assert check_indice(p,45) == False # Retourne False
+    assert check_indice(p,-9) == False # Retourne False
     print("ok pour check_indice")
     
 def test_check_room():
     p = init_play()
-    assert check_room(p,2,1) == True # Retourne True
-    assert check_room(p,10,2) == False# Retourne False
-    assert check_room(p,-1,3) == False # Retourne False
+    assert check_room(p,1,1) == True # Retourne True
+    assert check_room(p,6,3) == False# Retourne False
+    assert check_room(p,-10,5) == False # Retourne False
     assert check_room(p,3,3) == True # Retourne True
     print("ok pour check_room")
 def test_get_value():
