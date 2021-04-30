@@ -6,6 +6,6 @@ Langage utilisée:
 * Python
 
 Équipe:
-* Ramsanjeevan RAMMOHAN
+* Sanjeevan RAMMOHAN
 * Enrick LLARI
 
